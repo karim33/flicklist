@@ -2,7 +2,7 @@
 
 var api = {
 	root: "https://api.themoviedb.org/3",
-	token: "" // TODO put your api key here
+	token: "6b3776b906aa09a17095fd72d62ac00a" // TODO put your api key here
 }
 
 /**
@@ -12,12 +12,27 @@ var api = {
 function testTheAPI() {
 	$.ajax({
 		url: api.root + "/discover/movie",
+		dataType: 'json',
 		data: {
 			api_key: api.token,
 		},
 		success: function(response) {
 			console.log("We got a response from The Movie DB!");
-			console.log(response);
+			// console.log(JSON.stringify(response));
+			// let titles = JSON.stringify(response);
+			// console.log(response.results[0].title);
+			const $ul = $('<ul>');
+			for (const movies of response.results){
+				const $li = $('<li>')
+				console.log(movies.title);
+				const movie = movies.title
+				$li.append(movie)
+				// console.log($li);
+				$ul.append($li)
+			}
+
+			$('body').append($ul)
+
 		}
 	});
 }
